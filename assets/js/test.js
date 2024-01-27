@@ -4,8 +4,8 @@ async function test_oauth() {
     const tenant = document.getElementById('tenant').value;
     const client_id = document.getElementById('clientId').value;
     const redirect_uri = encodeURIComponent(`https://${window.location.hostname}${window.location.pathname}`);
-    // const scopes = ['Files.ReadWrite', 'FilesReadWrite.All'];
-    // const scopeParam = encodeURIComponent(scopes.join(' '));
+    const scopes = ['Files.ReadWrite', 'FilesReadWrite.All'];
+    //const scopeParam = encodeURIComponent(scopes.join(' '));
     const scope = encodeURIComponent('https://graph.microsoft.com/.default');
 
     const url = `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`;
@@ -14,7 +14,7 @@ async function test_oauth() {
         response_type : 'code',
         redirect_uri : redirect_uri,
         response_mode : 'query',
-        scope: scope,
+        scope: scopes,
         state: 12345
     };
 
