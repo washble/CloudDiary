@@ -1,18 +1,13 @@
 
 
 function test_oauth() {
-    const tenant = document.getElementById("tenant").value;
-    const client_id = document.getElementById("clientId").value;
+    const tenant = document.getElementById('tenant').value;
+    const client_id = document.getElementById('clientId').value;
     const redirect_uri = `https://${window.location.hostname}${window.location.pathname}`;
     const scopes = ['Files.ReadWrite', 'FilesReadWrite.All'];
     const scopeParam = encodeURIComponent(scopes.join(' '));
 
-    console.log(`tenant: ${tenant}`);
-    console.log(`client_id: ${client_id}`);
-    console.log(`redirect_uri: ${redirect_uri}`);
-    console.log(`scope: ${scopeParam}`);
-
-    const xhttp = new XMLHttpRequest();
+    const url = `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`;
     const data = {
         client_id : client_id,
         response_type : 'token',
@@ -20,14 +15,29 @@ function test_oauth() {
         scope: scopeParam,
     };
 
-    xhttp.onreadystatechange = function() {
-        if(this.readyState == this.DONE && this.status == 200) {
-            let result = JSON.parse(xhttp.responseText);
-            console.log(`Result: ${result}}`);
-        }
-    };
+    console.log(`tenant: ${tenant}`);
+    console.log(`client_id: ${client_id}`);
+    console.log(`redirect_uri: ${redirect_uri}`);
+    console.log(`scope: ${scopeParam}`);
 
-    xhttp.open('POST', `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`, true);
-    xhttp.setRequestHeader("content-type", "application/json");
-    xhttp.send(JSON.stringify(data));
+    const result = fetch_connection(url, data);
+    console.log(`Result: ${result}`);
+}
+
+function fetch_connection(url, data) {
+    const response = fetch(url, {
+        method: 'POST',
+        headers: {
+            'Constent-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    
+    return response.then(res => {
+        if(res.status === 200) return res.json();
+        else console.log(res.statusText);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
