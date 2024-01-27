@@ -31,7 +31,7 @@ function fetch_connection(url, data) {
     const response = fetch(url, {
         method: 'POST',
         headers: {
-            'Constent-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     });
