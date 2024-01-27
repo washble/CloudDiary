@@ -3,10 +3,10 @@
 function test_oauth() {
     const tenant = document.getElementById('tenant').value;
     const client_id = document.getElementById('clientId').value;
-    const redirect_uri = `https://${window.location.hostname}${window.location.pathname}`;
+    const redirect_uri = encodeURIComponent(`https://${window.location.hostname}${window.location.pathname}`);
     // const scopes = ['Files.ReadWrite', 'FilesReadWrite.All'];
     // const scopeParam = encodeURIComponent(scopes.join(' '));
-    const scope = 'https://graph.microsoft.com/.default';
+    const scope = encodeURIComponent('https://graph.microsoft.com/.default');
 
     const url = `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`;
     const data = {
