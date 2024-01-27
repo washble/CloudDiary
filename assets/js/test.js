@@ -23,7 +23,8 @@ async function test_oauth() {
     console.log(`redirect_uri: ${redirect_uri}`);
     console.log(`scope: ${scope}`);
 
-    const result = await fetch_connection(url, data);
+    //const result = await fetch_connection(url, data);
+    const result = await fetch_connection_get(data);
     console.log(`Result: ${result}`);
 }
 
@@ -34,6 +35,23 @@ function fetch_connection(url, data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
+    });
+    
+    return response.then(res => {
+        if(res.status === 200) return res.json();
+        else console.log(res.statusText);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+function fetch_connection_get(data) {
+    const response = fetch(`https://login.microsoftonline.com/${data.tenant}/oauth2/v2.0/authorize?client_id=${data.client_id}&response_type=code&redirect_uri=${data.redirect_uri}&response_mode=query&scope=${data.scope}&state=12345`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
     
     return response.then(res => {
