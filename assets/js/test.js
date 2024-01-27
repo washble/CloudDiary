@@ -11,9 +11,11 @@ function test_oauth() {
     const url = `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`;
     const data = {
         client_id : client_id,
-        response_type : 'token',
+        response_type : 'code',
         redirect_uri : redirect_uri,
+        response_mode : 'query',
         scope: scope,
+        state: 12345
     };
 
     console.log(`tenant: ${tenant}`);
