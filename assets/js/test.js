@@ -4,21 +4,22 @@ function test_oauth() {
     const tenant = document.getElementById('tenant').value;
     const client_id = document.getElementById('clientId').value;
     const redirect_uri = `https://${window.location.hostname}${window.location.pathname}`;
-    const scopes = ['Files.ReadWrite', 'FilesReadWrite.All'];
-    const scopeParam = encodeURIComponent(scopes.join(' '));
+    // const scopes = ['Files.ReadWrite', 'FilesReadWrite.All'];
+    // const scopeParam = encodeURIComponent(scopes.join(' '));
+    const scope = 'https://graph.microsoft.com/.default';
 
     const url = `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`;
     const data = {
         client_id : client_id,
         response_type : 'token',
         redirect_uri : redirect_uri,
-        scope: scopeParam,
+        scope: scope,
     };
 
     console.log(`tenant: ${tenant}`);
     console.log(`client_id: ${client_id}`);
     console.log(`redirect_uri: ${redirect_uri}`);
-    console.log(`scope: ${scopeParam}`);
+    console.log(`scope: ${scope}`);
 
     const result = fetch_connection(url, data);
     console.log(`Result: ${result}`);
