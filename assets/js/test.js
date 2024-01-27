@@ -1,6 +1,6 @@
 
 
-function test_oauth() {
+async function test_oauth() {
     const tenant = document.getElementById('tenant').value;
     const client_id = document.getElementById('clientId').value;
     const redirect_uri = encodeURIComponent(`https://${window.location.hostname}${window.location.pathname}`);
@@ -23,7 +23,7 @@ function test_oauth() {
     console.log(`redirect_uri: ${redirect_uri}`);
     console.log(`scope: ${scope}`);
 
-    const result = fetch_connection(url, data);
+    const result = await fetch_connection(url, data);
     console.log(`Result: ${result}`);
 }
 
