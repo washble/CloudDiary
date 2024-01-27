@@ -6,7 +6,8 @@ async function test_oauth() {
     const redirect_uri = encodeURIComponent(`https://${window.location.hostname}${window.location.pathname}`);
     //const scopes = ['openid', 'Files.ReadWrite', 'FilesReadWrite.All'];
     //const scopeParam = encodeURIComponent(scopes.join(' '));
-    const scope = encodeURIComponent('https://management.core.windows.net//.default openid profile offline_access');
+    //const scope = encodeURIComponent('https://management.core.windows.net//.default openid Files.ReadWrite FilesReadWrite.All');
+    const scope = encodeURIComponent('openid');
 
     const url = `https://login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`;
     const data = {
